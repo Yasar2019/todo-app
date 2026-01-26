@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pro Todo — 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="scene">
+    <section class="card" id="card" aria-labelledby="app-title">
+      <header class="header">
+        <h1 class="title" id="app-title">Your Tasks</h1>
+        <p class="subtitle">Plan it. Do it. Done.</p>
+      </header>
+
+      <form id="todo-form" class="input-row" autocomplete="off" aria-label="Add a new todo">
+        <input id="todo-input" type="text" placeholder="Add a todo…" aria-label="Todo" />
+        <button id="add-btn" type="submit" class="btn primary" aria-label="Add todo">
+          <span>Add</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="filters" role="tablist" aria-label="Filter todos">
+        <button class="filter-btn is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-btn" data-filter="active" role="tab" aria-selected="false">Active</button>
+        <button class="filter-btn" data-filter="completed" role="tab" aria-selected="false">Completed</button>
+      </div>
+
+      <ul id="todo-list" class="todo-list" aria-live="polite" aria-label="Todo list"></ul>
+      <div id="empty" class="empty">No todos yet — add your first one above.</div>
+
+      <div class="glare" id="glare" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

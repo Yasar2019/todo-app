@@ -10,6 +10,8 @@
   // State
   let todos = loadTodos();
   let filter = loadFilter();
+  let theme = loadTheme();
+  applyTheme(theme);
 
   // Initial render
   render();
@@ -100,6 +102,40 @@
 
   card.addEventListener('mousemove', setTilt);
   card.addEventListener('mouseleave', resetTilt);
+
+  // Theme handling
+  function loadTheme() {
+    try { return localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); } catch { return 'dark'; }
+  }
+  function saveTheme(t) { try { localStorage.setItem('theme', t); } catch {} }
+  function applyTheme(t) {
+    const root = document.documentElement;
+    if (t === 'light') root.classList.add('light'); else root.classList.remove('light');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.setAttribute('aria-pressed', t === 'light' ? 'true' : 'false');
+      btn.textContent = t === 'light' ? '🌙' : '☀️';
+    }
+  }
+  // inject toggle into header
+  (function addThemeToggle() {
+    const header = document.querySelector('.header');
+    if (!header) return;
+    const btn = document.createElement('button');
+    btn.id = 'theme-toggle';
+    btn.className = 'icon-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Toggle theme');
+    btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    btn.textContent = theme === 'light' ? '🌙' : '☀️';
+    btn.style.marginLeft = '12px';
+    btn.addEventListener('click', () => {
+      theme = theme === 'light' ? 'dark' : 'light';
+      saveTheme(theme);
+      applyTheme(theme);
+    });
+    header.appendChild(btn);
+  })();
 
   // Helpers
   function addTodo(text) {

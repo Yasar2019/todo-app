@@ -244,3 +244,19 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .card, .btn, .icon-btn, .glare, .input-row, .todo-list { transition: none !important; }
 }
+
+/* Light theme variables */
+html.light {
+  --bg-1: #f6f8fb;
+  --bg-2: #eef3fb;
+  --bg-3: #e9eff7;
+  --surface: #ffffff;
+  --surface-2: #fbfdff;
+  --text: #0b1220;
+  --muted: #5b6b83;
+  --primary-1: #2b6ef6;
+  --primary-2: #5b8cff;
+  --danger-1: #de3b3b;
+  --danger-2: #ff6b6b;
+  --border: rgba(11,18,32,0.06);
+}

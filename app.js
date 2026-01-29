@@ -22,7 +22,7 @@
     const text = input.value.trim();
     if (!text) {
       input.classList.add('invalid');
-      setTimeout(() => input.classList.remove('invalid'), 220);
+      setTimeout(() => input.classList.remove('invalid'), 320);
       return;
     }
     addTodo(text);
@@ -41,9 +41,11 @@
     if (del) {
       todos = todos.filter(t => String(t.id) !== String(id));
       saveTodos();
+      // Enhanced slide-out animation
       li.style.opacity = '0';
-      li.style.transform = 'translateY(4px)';
-      setTimeout(render, 140);
+      li.style.transform = 'translateX(-30px) scale(0.9)';
+      li.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 1, 1)';
+      setTimeout(render, 320);
       return;
     }
 
@@ -83,7 +85,7 @@
   }
 
   // 3D tilt effect
-  const bounds = card.getBoundingClientRect();
+  let bounds = card.getBoundingClientRect();
   const maxTilt = 10; // degrees
 
   function setTilt(e) {
@@ -92,13 +94,18 @@
     const rx = (0.5 - y) * maxTilt * 2; // invert for natural feel
     const ry = (x - 0.5) * maxTilt * 2;
     card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-    // move glare
-    glare.style.background = `radial-gradient(300px 180px at ${x*100}% ${y*100}%, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 60%, rgba(255,255,255,0) 70%)`;
+    // move glare with enhanced gradient
+    glare.style.background = `radial-gradient(400px 250px at ${x*100}% ${y*100}%, rgba(255,255,255,0.16), rgba(79,127,255,0.06) 50%, rgba(167,139,250,0.04) 65%, rgba(255,255,255,0) 75%)`;
   }
   function resetTilt() {
     card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    glare.style.background = 'radial-gradient(300px 180px at 50% 50%, rgba(255,255,255,0.10), rgba(255,255,255,0.02) 60%, rgba(255,255,255,0) 70%)';
+    glare.style.background = 'radial-gradient(400px 250px at 50% 50%, rgba(255,255,255,0.14), rgba(79,127,255,0.05) 50%, rgba(167,139,250,0.03) 65%, rgba(255,255,255,0) 75%)';
   }
+
+  // Update bounds on resize
+  window.addEventListener('resize', () => {
+    bounds = card.getBoundingClientRect();
+  });
 
   card.addEventListener('mousemove', setTilt);
   card.addEventListener('mouseleave', resetTilt);

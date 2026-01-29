@@ -35,12 +35,6 @@ body {
     radial-gradient(1400px 700px at 15% 10%, #1a2847 0%, transparent 45%),
     radial-gradient(1000px 600px at 85% 20%, #2d1b5e 0%, transparent 55%),
     linear-gradient(135deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
-  animation: backgroundShift 20s ease infinite alternate;
-}
-
-@keyframes backgroundShift {
-  0% { background-position: 0% 0%, 100% 0%, 0% 0%; }
-  100% { background-position: 10% 5%, 90% 10%, 0% 0%; }
 }
 
 /* Center stage with perspective */
@@ -112,6 +106,7 @@ body {
   font-size: clamp(1.8rem, 2.5vw, 2.6rem); 
   font-weight: 700; 
   letter-spacing: -0.5px; 
+  color: var(--text);
   background: linear-gradient(135deg, var(--text), var(--accent-2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -211,23 +206,9 @@ body {
     0 12px 24px rgba(0,0,0,0.45), 
     inset 0 1px 0 rgba(255,255,255,0.25);
   transform: translateZ(40px) translateY(-2px);
-  animation: pulse 1.5s ease-in-out infinite;
 }
 .btn:hover .icon { transform: rotate(90deg); }
 .btn:active { transform: translateZ(30px) translateY(0px); }
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 
-    0 24px 40px rgba(79,127,255,0.5), 
-    0 12px 24px rgba(0,0,0,0.45), 
-    inset 0 1px 0 rgba(255,255,255,0.25);
-  }
-  50% { box-shadow: 
-    0 28px 48px rgba(79,127,255,0.6), 
-    0 14px 28px rgba(0,0,0,0.5), 
-    inset 0 1px 0 rgba(255,255,255,0.3);
-  }
-}
 
 .todo-list {
   list-style: none;
@@ -466,7 +447,19 @@ body {
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .card, .btn, .icon-btn, .glare, .input-row, .todo-list { transition: none !important; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  body, .card, .btn, .icon-btn, .glare, .input-row, .todo-list, .todo-item,
+  .header, .filters, .filter-btn, .toggle, .empty {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* Light theme variables */

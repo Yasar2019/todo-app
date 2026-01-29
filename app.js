@@ -22,7 +22,7 @@
     const text = input.value.trim();
     if (!text) {
       input.classList.add('invalid');
-      setTimeout(() => input.classList.remove('invalid'), 220);
+      setTimeout(() => input.classList.remove('invalid'), 320);
       return;
     }
     addTodo(text);
@@ -85,7 +85,7 @@
   }
 
   // 3D tilt effect
-  const bounds = card.getBoundingClientRect();
+  let bounds = card.getBoundingClientRect();
   const maxTilt = 10; // degrees
 
   function setTilt(e) {
@@ -101,6 +101,11 @@
     card.style.transform = 'rotateX(0deg) rotateY(0deg)';
     glare.style.background = 'radial-gradient(400px 250px at 50% 50%, rgba(255,255,255,0.14), rgba(79,127,255,0.05) 50%, rgba(167,139,250,0.03) 65%, rgba(255,255,255,0) 75%)';
   }
+
+  // Update bounds on resize
+  window.addEventListener('resize', () => {
+    bounds = card.getBoundingClientRect();
+  });
 
   card.addEventListener('mousemove', setTilt);
   card.addEventListener('mouseleave', resetTilt);
